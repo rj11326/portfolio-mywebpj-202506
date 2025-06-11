@@ -1,5 +1,7 @@
 @extends('layouts.company')
 
+@section('title', '企業アカウント申請完了')
+
 @section('content')
 <div class="max-w-lg mx-auto py-16 text-center">
     <h1 class="text-2xl font-bold mb-6 text-green-700">企業アカウント申請を受け付けました</h1>

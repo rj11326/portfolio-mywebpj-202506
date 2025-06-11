@@ -1,4 +1,7 @@
 @extends('layouts.app')
+
+@section('title', '資格の編集')
+
 @section('content')
 <div class="max-w-3xl mx-auto py-10 px-4"
     x-data="{ isCurrent: {{ old('is_current', $education->is_current ?? false) ? 'true' : 'false' }} }">

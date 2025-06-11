@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'ログイン')
+
 @section('content')
 <div class="flex items-center justify-center min-h-screen bg-white px-2">
     <div class="w-3xl max-w-sm space-y-6 p-6 bg-white border border-gray-200 rounded-xl shadow-md">

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', '求人一覧')
+
 @section('content')
 <div x-data="jobFilter()" x-init="init();" @search.window="onSearch($event)"
     class="max-w-7xl mx-auto py-10 px-4 grid md:grid-cols-4 gap-8">

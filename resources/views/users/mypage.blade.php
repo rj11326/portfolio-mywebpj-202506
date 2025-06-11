@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'マイページ')
+
 @section('content')
 <div class="max-w-5xl mx-auto py-10 px-4 space-y-10">
     {{-- 個人情報セクション --}}

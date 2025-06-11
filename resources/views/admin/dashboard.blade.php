@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', '管理者ダッシュボード')
+
 @section('content')
     <h1 class="text-2xl font-bold mb-6">管理者ダッシュボード</h1>
     <div class="bg-white p-6 rounded-xl shadow mb-8">

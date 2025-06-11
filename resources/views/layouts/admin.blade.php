@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>管理画面 - @yield('title', '求人サイト')</title>
+    <title>管理画面 - @yield('title', config('app.name'))</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @stack('head')

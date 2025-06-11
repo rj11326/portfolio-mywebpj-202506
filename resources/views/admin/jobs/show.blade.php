@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', '求人詳細')
+
 @section('content')
 <h1 class="text-2xl font-bold mb-6">{{ $job->title }}</h1>
 

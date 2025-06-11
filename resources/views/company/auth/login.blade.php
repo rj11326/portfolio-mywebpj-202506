@@ -1,5 +1,7 @@
 @extends('layouts.company')
 
+@section('title', '企業ログイン')
+
 @section('content')
 <div class="max-w-md mx-auto mt-12 bg-white rounded-xl shadow p-8">
     <h1 class="text-2xl font-bold mb-6">企業ログイン</h1>

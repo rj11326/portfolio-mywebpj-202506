@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>企業管理画面 - @yield('title', config('app.name'))</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <!-- Fonts -->

@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', 'タグ追加')
+
 @section('content')
 <div class="flex justify-center">
     <h1 class="text-2xl font-bold mb-6 w-full max-w-lg text-left">タグ追加</h1>

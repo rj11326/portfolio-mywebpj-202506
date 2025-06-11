@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'パスワード変更')
+
 @section('content')
 <div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow my-10">
     <h1 class="text-2xl font-bold mb-6">パスワード変更</h1>

@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', $job->title . ' - 求人詳細')
+
 @section('content')
 <div class="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 bg-white">
 

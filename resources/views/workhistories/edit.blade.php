@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', '職歴の編集')
+
 @section('content')
 <div class="max-w-3xl mx-auto py-10 px-4"
     x-data="{ isCurrent: {{ old('is_current', $workHistory->is_current ?? false) ? 'true' : 'false' }} }">

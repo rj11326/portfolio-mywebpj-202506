@@ -1,5 +1,6 @@
-{{-- resources/views/saved-jobs/index.blade.php --}}
 @extends('layouts.app')
+
+@section('title', '保存済み求人一覧')
 
 @section('content')
 <div class="max-w-3xl mx-auto py-12 px-4">

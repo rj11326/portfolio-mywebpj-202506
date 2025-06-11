@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', '企業申請一覧')
+
 @section('content')
     <h1 class="text-xl font-bold mb-4">企業申請一覧</h1>
 

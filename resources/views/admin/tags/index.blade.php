@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@section('title', 'タグ一覧')
+
 @section('content')
 <h1 class="text-2xl font-bold mb-6">タグ一覧</h1>
 @if(session('success'))

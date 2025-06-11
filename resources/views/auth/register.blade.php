@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'アカウント新規登録')
+
 @section('content')
 <div class="flex justify-center items-center min-h-screen">
     <div class="w-full max-w-lg bg-white p-10">
