@@ -44,3 +44,6 @@ dist/
 bootstrap/cache/*
 Dockerfile
 fly.toml
+.dockerignore
+.editconfig
+tbls.yml
