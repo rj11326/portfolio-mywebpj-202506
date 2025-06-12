@@ -100,11 +100,11 @@ $employmentTypes = config('const.employment_types');
     <div>
         <label class="block font-semibold mb-1">給与(年収)</label>
         <div class="flex items-center gap-2">
-            <input type="number" name="salary_min" step="100000" class="w-full border rounded px-3 py-2" required
-                placeholder="最低年収" value="{{ old('salary_min', $job->salary_min ?? '') }}">
+            <input type="number" name="salary_min" step="50" class="w-full border rounded px-3 py-2" required
+                placeholder="最低年収（例）300" value="{{ old('salary_min', $job->salary_min ?? '') }}">
             <span class="mx-1 text-gray-500 text-lg font-semibold">〜</span>
-            <input type="number" name="salary_max" step="100000" class="w-full border rounded px-3 py-2" required
-                placeholder="最高年収" value="{{ old('salary_max', $job->salary_max ?? '') }}">
+            <input type="number" name="salary_max" step="50" class="w-full border rounded px-3 py-2" required
+                placeholder="最高年収（例）500" value="{{ old('salary_max', $job->salary_max ?? '') }}">
         </div>
         @error('salary_min') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
         @error('salary_max') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror

@@ -75,7 +75,7 @@
 
             <!-- 検索ボタン -->
             <button type="submit" class="ml-4 bg-red-500 hover:bg-red-600 text-white rounded-full p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                <svg xmlns="https://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor">
                     <circle cx="11" cy="11" r="7" stroke-width="2" />
                     <line x1="21" y1="21" x2="16.65" y2="16.65" stroke-width="2" />

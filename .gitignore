@@ -22,9 +22,25 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 
-/public/build
-/storage/pail
+/public/build/
+/public/mix-manifest.json
+/storage/pail/
 .env.backup
 .env.production
 .phpactor.json
 auth.json
+
+/.fly/
+/.github/
+/.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+nohup.out
+*.swp
+*.swo
+dist/
+bootstrap/cache/*
+Dockerfile
+fly.toml

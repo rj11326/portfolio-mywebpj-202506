@@ -1,12 +1,14 @@
 @extends('layouts.app')
 
+@section('title', '学歴の追加')
+
 @section('content')
 <div class="max-w-3xl mx-auto py-10 px-4"
     x-data="{ isCurrent: {{ old('is_current', $education->is_current ?? false) ? 'true' : 'false' }} }">
     {{-- 戻るリンク --}}
     <div class="mb-6">
         <a href="{{ route('mypage') }}" class="inline-flex items-center text-gray-600 hover:text-blue-600 text-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+            <svg xmlns="https://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
