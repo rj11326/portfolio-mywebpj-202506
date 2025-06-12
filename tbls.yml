@@ -1,0 +1,9 @@
+dsn: 'mysql://jobuser:job_pass@localhost:3306/jobsite'
+docPath: docs/テーブル定義書
+name: 求人サイト管理DB
+er:
+  format: svg
+  showColumnType: true
+  related: true
+  primary: true
+  distance: 2
