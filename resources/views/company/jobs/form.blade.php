@@ -211,6 +211,12 @@ $employmentTypes = config('const.employment_types');
             class="w-full border rounded px-3 py-2">
         @error('application_deadline') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
     </div>
+    <div>
+        <label class="block font-semibold mb-1">応募時自動メッセージ（応募者に自動送信されます）</label>
+        <textarea name="auto_reply_message" class="w-full border rounded px-3 py-2" rows="3"
+            placeholder="例：ご応募ありがとうございます。担当者より追ってご連絡いたします。">{{ old('auto_reply_message', $job->auto_reply_message ?? '') }}</textarea>
+        @error('auto_reply_message') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
+    </div>
 
     <div class="flex gap-4 items-center">
         <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">

@@ -143,6 +143,12 @@ class CompanyJobController extends Controller
         $job = Job::findOrFail($id);
         $this->authorize('update', $job);
 
+        // 公開にする時だけauto_reply_messageが未設定ならエラー
+        if (!$job->is_active && empty($job->auto_reply_message)) {
+            return back()->withErrors(['auto_reply_message' => '公開には自動メッセージの設定が必須です。'])
+                ->withInput();
+        }
+
         $job->is_active = !$job->is_active;
         $job->save();
 
@@ -232,6 +238,7 @@ class CompanyJobController extends Controller
             'application_deadline' => 'nullable|date|after_or_equal:today',
             'tags' => 'nullable|array',
             'tags.*' => 'integer|exists:tags,id',
+            'auto_reply_message' => 'nullable|string',
         ];
     }
 }

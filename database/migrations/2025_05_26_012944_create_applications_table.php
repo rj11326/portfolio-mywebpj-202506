@@ -17,7 +17,6 @@ return new class extends Migration {
             $table->tinyInteger('status')->default(0);
             $table->text('message')->nullable();
             $table->text('motivation')->nullable();
-            $table->string('resume_path')->nullable();
             $table->unique(['user_id', 'job_id']);
             $table->timestamps();
         });

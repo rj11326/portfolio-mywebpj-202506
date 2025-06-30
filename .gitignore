@@ -47,3 +47,4 @@ fly.toml
 .dockerignore
 .editconfig
 tbls.yml
+tring('resume_path')->nullable();

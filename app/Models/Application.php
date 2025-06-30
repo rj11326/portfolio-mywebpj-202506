@@ -7,7 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Application extends Model
 {
-    protected $fillable = ['user_id', 'job_id', 'status', 'message', 'motivation', 'resume_path'];
+    protected $fillable = [
+        'user_id',
+        'job_id',
+        'company_id',
+        'status',
+        'message',
+        'motivation',
+        'resume_path'
+    ];
+    
     protected $casts = [
         'status' => 'integer',
     ];
@@ -22,8 +31,18 @@ class Application extends Model
         return $this->belongsTo(Job::class);
     }
 
+    public function company(): BelongsTo
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     public function files()
     {
         return $this->hasMany(ApplicationFile::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

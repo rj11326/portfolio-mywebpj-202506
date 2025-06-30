@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/js/user-jobs-index.js": "/js/user-jobs-index.js",
     "/js/user-home.js": "/js/user-home.js",
+    "/js/chat.js": "/js/chat.js",
     "/css/app.css": "/css/app.css"
 }

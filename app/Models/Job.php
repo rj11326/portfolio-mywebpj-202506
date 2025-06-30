@@ -36,6 +36,7 @@ class Job extends Model
         'is_featured',
         'is_closed',
         'application_deadline',
+        'auto_reply_message',
     ];
 
     public function company(): BelongsTo

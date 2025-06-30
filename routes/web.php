@@ -10,6 +10,7 @@ use App\Http\Controllers\EducationController;
 use App\Http\Controllers\LicenseController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\SavedJobController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Company\Auth\CompanyAuthenticatedSessionController;
 use App\Http\Controllers\Admin\Auth\AdminAuthController;
 use App\Http\Controllers\Admin\AdminCompanyApplicationController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Company\CompanyJobController;
 use App\Http\Controllers\Company\CompanyProfileController;
 use App\Http\Controllers\Company\CompanyImageController;
 use App\Http\Controllers\Company\CompanyDashboardController;
+use App\Http\Controllers\Company\CompanyMessageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -55,6 +57,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('applications.store');
     Route::get('/applications/thanks', fn() => view('applications.thanks'))->name('applications.thanks');
 
+    // メッセージ
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/{application}', [MessageController::class, 'show'])->name('messages.show');
+    Route::post('/messages/{application}', [MessageController::class, 'store'])->name('messages.store');
+    Route::get('/messages/file/{file}', [MessageController::class, 'downloadFile'])->name('messages.download');
+
     // お気に入り求人
     Route::get('/saved-jobs', [SavedJobController::class, 'index'])->name('saved_jobs.index');
 
@@ -81,28 +89,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth:admin'])->group(function () {
         // ログアウト
         Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout');
-        
+
         // 管理者ダッシュボード
         Route::get('dashboard', fn() => view('admin.dashboard'))->name('dashboard');
-        
+
         // 企業申請管理
         Route::resource('company_applications', AdminCompanyApplicationController::class)->only(['index', 'show']);
         Route::post('company_applications/{id}/approve', [AdminCompanyApplicationController::class, 'approve'])->name('company_applications.approve');
         Route::post('company_applications/{id}/reject', [AdminCompanyApplicationController::class, 'reject'])->name('company_applications.reject');
-        
+
         // 求人管理
         Route::get('jobs', [AdminJobController::class, 'index'])->name('jobs.index');
         Route::get('jobs/{job}', [AdminJobController::class, 'show'])->name('jobs.show');
         Route::post('jobs/{job}/toggle-active', [AdminJobController::class, 'toggleActive'])->name('jobs.toggle_active');
         Route::post('jobs/{job}/toggle-featured', [AdminJobController::class, 'toggleFeatured'])->name('jobs.toggle_featured');
         Route::post('jobs/{job}/close', [AdminJobController::class, 'close'])->name('jobs.close');
-        
+
         // カテゴリ管理
         Route::resource('categories', AdminJobCategoryController::class)->except(['show']);
-        
+
         // タグ管理
         Route::resource('tags', AdminTagController::class)->except(['show']);
-        
+
         // 企業管理
         Route::resource('companies', AdminCompanyController::class)->except(['show', 'create', 'store', 'edit', 'update']);
         Route::post('companies/{id}/restore', [AdminCompanyController::class, 'restore'])->name('companies.restore');
@@ -123,25 +131,25 @@ Route::prefix('company')->name('company.')->group(function () {
     Route::middleware(['auth:company'])->group(function () {
         // 企業ログアウト
         Route::post('logout', [CompanyAuthenticatedSessionController::class, 'logout'])->name('logout');
-        
+
         // 企業ダッシュボード
         Route::get('dashboard', [CompanyDashboardController::class, 'index'])->name('dashboard');
-        
+
         // 企業情報管理
         Route::get('profiles', [CompanyProfileController::class, 'show'])->name('profiles.show');
         Route::get('profiles/edit', [CompanyProfileController::class, 'edit'])->name('profiles.edit');
         Route::post('profiles/edit', [CompanyProfileController::class, 'update'])->name('profiles.update');
-        
+
         // 企業画像管理
         Route::get('images', [CompanyImageController::class, 'index'])->name('images');
         Route::post('images/store', [CompanyImageController::class, 'store'])->name('images.store');
         Route::delete('images/{id}', [CompanyImageController::class, 'destroy'])->name('images.destroy');
         Route::post('images/reorder', [CompanyImageController::class, 'reorder'])->name('images.reorder');
-        
+
         // 企業担当者管理
         Route::resource('users', CompanyUserController::class)->names('users')->except(['show']);
         Route::post('users/{user}/reset-password', [CompanyUserController::class, 'resetPassword'])->name('users.reset_password');
-        
+
         // 求人管理
         Route::post('jobs/preview', [CompanyJobController::class, 'preview'])->name('jobs.preview');
         Route::resource('jobs', CompanyJobController::class);
@@ -149,12 +157,17 @@ Route::prefix('company')->name('company.')->group(function () {
         Route::post('jobs/{job}/toggle-active', [CompanyJobController::class, 'toggleActive'])->name('jobs.toggle_active');
         Route::post('jobs/{job}/close', [CompanyJobController::class, 'close'])->name('jobs.close');
         Route::get('jobs/{job}/applicants', [CompanyJobController::class, 'applicants'])->name('jobs.applicants');
-        
+
         // 応募管理
         Route::get('applications', [CompanyApplicationController::class, 'index'])->name('applications.index');
         Route::get('applications/{application}', [CompanyApplicationController::class, 'show'])->name('applications.show');
         Route::post('applications/{application}/status', [CompanyApplicationController::class, 'status'])->name('applications.status');
         Route::post('applications/{application}/memo', [CompanyApplicationController::class, 'memo'])->name('applications.memo');
         Route::get('applications/{application}/download-all', [CompanyApplicationController::class, 'downloadAllFiles'])->name('applications.download_all');
+
+        // メッセージ
+        Route::get('messages/{application}', [CompanyMessageController::class, 'show'])->name('messages.show');
+        Route::post('messages/{application}', [CompanyMessageController::class, 'store'])->name('messages.store');
+        Route::get('messages/files/{file}', [CompanyMessageController::class, 'downloadFile'])->name('messages.download');
     });
 });

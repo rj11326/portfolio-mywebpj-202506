@@ -32,6 +32,8 @@
                     class="text-gray-800 hover:text-red-600 text-sm font-medium">応募履歴</a>
                 <a href="{{ route('saved_jobs.index') }}"
                     class="text-gray-800 hover:text-red-600 text-sm font-medium">保存済み求人</a>
+                <a href="{{ route('messages.index') }}"
+                    class="text-gray-800 hover:text-red-600 text-sm font-medium">メッセージ</a>
                 <a href="{{ route('mypage') }}" class="text-gray-800 hover:text-red-600 text-sm font-medium">マイページ</a>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf

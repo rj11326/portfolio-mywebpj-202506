@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Job;
+use App\Models\Message;
 use App\Mail\ApplicationSubmitted;
 use Illuminate\Support\Facades\Mail;
 
@@ -51,10 +52,13 @@ class ApplicationController extends Controller
             return redirect()->back()->with('error', 'すでに応募済みです。');
         }
 
+        $job = Job::findOrFail($jobId);
+
         // 応募を保存
         $application = Application::create([
             'user_id' => $user->id,
             'job_id' => $jobId,
+            'company_id' => $job->company_id,
             'message' => $request->message,
             'motivation' => $request->motivation,
         ]);
@@ -69,6 +73,18 @@ class ApplicationController extends Controller
                     'original_name' => $file->getClientOriginalName(),
                 ]);
             }
+        }
+
+        $job = $application->job;
+        $autoReply = $job->auto_reply_message;
+        if (!empty($autoReply)) {
+            Message::create([
+                'application_id' => $application->id,
+                'sender_type' => 1, // 1: 企業
+                'sender_id' => $job->company_id,
+                'message' => $autoReply,
+                'is_read' => false,
+            ]);
         }
 
         // 企業メールアドレス取得

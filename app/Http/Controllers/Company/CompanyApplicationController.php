@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Company;
 
 use App\Http\Controllers\Controller;
 use App\Models\Application;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use ZipArchive;
+use App\Services\MessageService;
 
 class CompanyApplicationController extends Controller
 {
@@ -53,9 +55,15 @@ class CompanyApplicationController extends Controller
             'job'
         ])->findOrFail($id);
 
-        $company = Auth::guard('company')->user()->company;
+        $companyId = Auth::guard('company')->user()->company_id;
 
-        return view('company.applications.show', compact('application'));
+        // メッセージ一覧も取得
+        $messages = $application->messages()
+            ->with(['files', 'senderUser', 'senderCompany'])
+            ->orderBy('created_at')
+            ->get();
+
+        return view('company.applications.show', compact('application', 'messages'));
     }
 
     public function status(Request $request, $id)
