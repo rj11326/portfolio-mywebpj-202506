@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Company;
 
+use App\Services\ImageService;
 use App\Http\Controllers\Controller;
 use App\Models\CompanyImage;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class CompanyImageController extends Controller
      * @param \Illuminate\Http\Request $request リクエストインスタンス
      * @return \Illuminate\Http\RedirectResponse 保存後のリダイレクトレスポンス
      */
-    public function store(Request $request)
+    public function store(Request $request, ImageService $imageService)
     {
         // 認証された企業ユーザーの情報を取得
         $company = Auth::guard('company')->user()->company;
@@ -63,7 +64,7 @@ class CompanyImageController extends Controller
         foreach ($deleted as $imgId) {
             $img = $company->images()->find($imgId);
             if ($img) {
-                Storage::disk('public')->delete($img->file_path);
+                $imageService->deleteImage($img->file_path);
                 $img->delete();
             }
         }
@@ -101,18 +102,13 @@ class CompanyImageController extends Controller
             foreach ($request->file('images') as $file) {
                 if ($order >= 3)
                     break;
-                $filename = uniqid('company_', true) . '.webp';
-                $path = "companies/{$company->id}/images/{$filename}";
-                $manager = new ImageManager(new GdDriver());
-
-                $canvas = $manager->create(1200, 675);
-                $canvas->fill('ffffff');
-                $image = $manager->read($file)->scaleDown(1200, 675);
-                $canvas->place($image, 'center');
-
-                $img = $canvas->toWebp(80);
-                Storage::disk('public')->put($path, $img->toString());
-
+                $path = $imageService->saveImage(
+                    $file,
+                    "companies/{$company->id}/images",
+                    1200,
+                    675,
+                    80
+                );
                 $company->images()->create([
                     'file_path' => $path,
                     'order' => $order++,

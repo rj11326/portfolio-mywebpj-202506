@@ -8,10 +8,6 @@
     @csrf
 
     <div class="mb-4 text-sm text-gray-600 text-center flex flex-col items-center">
-        <svg class="w-8 h-8 inline text-blue-400 mb-1" fill="none" stroke="currentColor" stroke-width="2"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 8h16M4 16h16M10 12h4"/>
-        </svg>
         <span>画像は <span class="font-semibold text-blue-600">ドラッグ＆ドロップ</span> で並び替えできます</span>
     </div>
     <div class="flex gap-4 justify-center mb-8"
@@ -80,7 +76,6 @@ function imageUploader() {
             if (img.id) this.deletedImages.push(img.id);
             this.images.splice(idx, 1);
         },
-        // ---- 並び替え(ドラッグ&ドロップ) ----
         onDragStart(idx) {
             this.draggedIndex = idx;
         },
