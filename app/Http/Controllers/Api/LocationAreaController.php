@@ -17,6 +17,7 @@ class LocationAreaController extends Controller
      */
     public function index()
     {
+        // 地域とその下位のロケーションを取得
         $areas = Area::with(['locations' => function($q) {
             $q->orderBy('sort_order');
         }])

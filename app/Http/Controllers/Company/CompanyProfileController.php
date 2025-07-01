@@ -18,6 +18,7 @@ class CompanyProfileController extends Controller
      */
     public function show()
     {
+        // 認証された企業ユーザーから会社情報を取得
         $company = Auth::guard('company')->user()->company;
         return view('company.profiles.show', compact('company'));
     }
@@ -31,6 +32,7 @@ class CompanyProfileController extends Controller
      */
     public function edit()
     {
+        // 認証された企業ユーザーから会社情報を取得
         $company = Auth::guard('company')->user()->company;
         return view('company.profiles.edit', compact('company'));
     }
@@ -45,8 +47,10 @@ class CompanyProfileController extends Controller
      */
     public function update(Request $request)
     {
+        // 認証された企業ユーザーから会社情報を取得
         $company = Auth::guard('company')->user()->company;
 
+        // リクエストのバリデーション
         $validated = $request->validate([
             'name'            => 'required|string|max:255',
             'email'           => 'required|email|max:255',
@@ -56,6 +60,7 @@ class CompanyProfileController extends Controller
             'employee_count'  => 'nullable|integer',
         ]);
 
+        // 会社情報を更新
         $company->update($validated);
 
         return redirect()->route('company.profiles.show')->with('status', '会社情報を更新しました');

@@ -30,6 +30,7 @@ class CompanyApplyController extends Controller
      */
     public function store(Request $request)
     {
+        // リクエストのバリデーション
         $validated = $request->validate([
             'company_name'      => 'required|string|max:255',
             'company_email'     => 'required|email|max:255',
@@ -39,6 +40,7 @@ class CompanyApplyController extends Controller
             'contact_phone'     => 'nullable|string|max:50',
         ]);
 
+        // 企業申請データを保存
         CompanyApplication::create($validated);
 
         //TODO: メール通知などの処理を追加
