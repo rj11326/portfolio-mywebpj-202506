@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@php $hideFooter = true; @endphp
 
 @section('content')
 <div class="flex justify-center items-start min-h-[80vh] bg-gray-100 py-6" x-data="messageComponent(

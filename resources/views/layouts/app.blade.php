@@ -19,7 +19,7 @@
 
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-white">
-        @include('layouts.navigation')
+        @include('partials.navigation')
 
         <!-- Page Heading -->
         @isset($header)
@@ -35,6 +35,11 @@
             @yield('content')
         </main>
     </div>
+
+    @if (!isset($hideFooter) || !$hideFooter)
+    @include('partials.footer')
+    @endif
+
     @stack('scripts')
 </body>
 
