@@ -7,6 +7,7 @@ use App\Models\Job;
 use App\Models\Tag;
 use App\Models\JobCategory;
 use App\Models\Location;
+use App\Models\Area;
 use App\Models\Application;
 use App\Models\Company;
 use Illuminate\Http\Request;
@@ -49,13 +50,17 @@ class CompanyJobController extends Controller
     {
         // タグ、カテゴリ、ロケーションの情報を取得
         $allTags = Tag::orderBy('sort_order')->get();
-        $categories = JobCategory::all();
-        $locations = Location::all();
+        $categories = JobCategory::with('children')->whereNull('parent_id')->get();
+        $areas = Area::with([
+            'locations' => function ($q) {
+                $q->orderBy('sort_order');
+            }
+        ])->orderBy('sort_order')->get();
 
         return view('company.jobs.create', [
             'allTags' => $allTags,
             'categories' => $categories,
-            'locations' => $locations,
+            'areas' => $areas,
             'selectedTags' => [],
             'job' => null,
         ]);
@@ -135,7 +140,7 @@ class CompanyJobController extends Controller
 
         // バリデーションルールを取得
         $validated = $request->validate($this->getValidationRules());
-        
+
         // 求人の更新
         $job->update($validated);
 
@@ -145,7 +150,7 @@ class CompanyJobController extends Controller
         return redirect()->route('company.jobs.index')->with('success', '求人を更新しました');
     }
 
-    
+
     /**
      * 求人のプレビューを表示
      *

@@ -21,11 +21,15 @@ $employmentTypes = config('const.employment_types');
         <label class="block font-semibold mb-1">カテゴリ</label>
         <select name="job_category_id" class="w-full border rounded px-3 py-2" required>
             <option value="">-- 選択してください --</option>
-            @foreach($categories as $category)
-            <option value="{{ $category->id }}" @if(old('job_category_id', $job->job_category_id ?? '') ==
-                $category->id) selected @endif>
-                {{ $category->name }}
-            </option>
+            @foreach($categories as $parent)
+            <optgroup label="{{ $parent->name }}">
+                @foreach($parent->children as $child)
+                <option value="{{ $child->id }}" @if(old('job_category_id', $job->job_category_id ?? '') == $child->id)
+                    selected @endif>
+                    {{ $child->name }}
+                </option>
+                @endforeach
+            </optgroup>
             @endforeach
         </select>
         @error('job_category_id') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
@@ -78,13 +82,19 @@ $employmentTypes = config('const.employment_types');
 
     <div>
         <label class="block font-semibold mb-1">勤務地(県)</label>
-        <select name="location_id" class="w-full border rounded px-3 py-2">
+        <select name="location_id" class="w-full border rounded px-3 py-2" required>
             <option value="">-- 選択してください --</option>
-            @foreach($locations as $location)
-            <option value="{{ $location->id }}" @if(old('location_id', $job->location_id ?? '') == $location->id)
-                selected @endif>
-                {{ $location->name }}
-            </option>
+            @foreach($areas as $area)
+            @if($area->locations->count())
+            <optgroup label="{{ $area->name }}">
+                @foreach($area->locations as $location)
+                <option value="{{ $location->id }}" @if(old('location_id', $job->location_id ?? '') == $location->id)
+                    selected @endif>
+                    {{ $location->name }}
+                </option>
+                @endforeach
+            </optgroup>
+            @endif
             @endforeach
         </select>
         @error('location_id') <p class="text-red-500 text-xs">{{ $message }}</p> @enderror
