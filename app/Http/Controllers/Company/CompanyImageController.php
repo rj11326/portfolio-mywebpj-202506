@@ -12,11 +12,20 @@ use Intervention\Image\Drivers\Gd\Driver as GdDriver;
 
 class CompanyImageController extends Controller
 {
-    // 画像一覧（管理画面）
+    /**
+     * 企業の画像一覧を表示
+     *
+     * @since 1.0.0
+     *
+     * @return \Illuminate\View\View 企業画像管理ページのビュー
+     */
     public function index()
     {
+        // 認証された企業ユーザーの情報を取得
         $company = Auth::guard('company')->user()->company;
+        // 企業の画像を取得し、順番に並べ替え
         $images = $company->images()->orderBy('order')->get();
+        // 画像のURLを生成して配列に変換
         $existingImages = $images->map(function ($img) {
             return [
                 'id' => $img->id,
@@ -26,9 +35,17 @@ class CompanyImageController extends Controller
         return view('company.profiles.images', compact('company', 'existingImages'));
     }
 
-    // 保存（追加・削除・並び替えまとめて）
+    /**
+     * 保存（追加・削除・並び替えまとめて）
+     *
+     * @since 1.0.0
+     *
+     * @param \Illuminate\Http\Request $request リクエストインスタンス
+     * @return \Illuminate\Http\RedirectResponse 保存後のリダイレクトレスポンス
+     */
     public function store(Request $request)
     {
+        // 認証された企業ユーザーの情報を取得
         $company = Auth::guard('company')->user()->company;
 
         // バリデーション
@@ -40,6 +57,8 @@ class CompanyImageController extends Controller
             'images.*' => 'image|max:5120',
         ]);
 
+        // 既存の画像を削除
+        // deleted_imagesはJSON形式で送信されることを想定
         $deleted = json_decode($request->input('deleted_images', '[]'), true) ?: [];
         foreach ($deleted as $imgId) {
             $img = $company->images()->find($imgId);
@@ -49,6 +68,10 @@ class CompanyImageController extends Controller
             }
         }
 
+        // 既存の画像の並び替え
+        // existing_imagesは配列で送信されることを想定
+        // 画像IDの配列を取得し、順番に並べ替え
+        // 画像のorderフィールドを更新する
         $existingIds = $request->input('existing_images', []);
         if (is_array($existingIds)) {
             // 一時的にユニークな値（-imgId）を入れる
@@ -69,6 +92,10 @@ class CompanyImageController extends Controller
             }
         }
 
+        // 新しい画像を追加
+        // 既存の画像数をカウント
+        // 最大3枚まで追加可能
+        // 画像は1200x675にリサイズし、中央に配置してWebP形式で保存
         $order = count($existingIds);
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {

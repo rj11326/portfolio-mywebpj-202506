@@ -17,12 +17,27 @@ class CompanyApproved extends Mailable
     public $companyUser;
     public $initialPassword;
 
+    /**
+     * コンストラクタで新しいメールインスタンスを作成
+     * 
+     * @since 1.0.0
+     *
+     * @param CompanyUser $companyUser 企業ユーザーインスタンス
+     * @param string $initialPassword 初期パスワード
+     */
     public function __construct(CompanyUser $companyUser, string $initialPassword)
     {
         $this->companyUser = $companyUser;
         $this->initialPassword = $initialPassword;
     }
 
+    /**
+     * メールのエンベロープを構築
+     * 
+     * @since 1.0.0
+     *
+     * @return Envelope
+     */
     public function envelope(): Envelope
     {
         return new Envelope(
@@ -30,6 +45,13 @@ class CompanyApproved extends Mailable
         );
     }
 
+    /**
+     * メールの内容を定義
+     * 
+     * @since 1.0.0
+     *
+     * @return Content
+     */
     public function content(): Content
     {
         // メールの内容を定義
@@ -42,6 +64,13 @@ class CompanyApproved extends Mailable
         );
     }
 
+    /**
+     * メールの添付ファイルを構築
+     * 
+     * @since 1.0.0
+     *
+     * @return array
+     */
     public function attachments(): array
     {
         // 添付ファイルが必要な場合はここで定義

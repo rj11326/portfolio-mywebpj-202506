@@ -8,9 +8,18 @@ use Illuminate\Support\Facades\Storage;
 
 class MessageService
 {
-    // メッセージ保存＋ファイル保存
+    /**
+     * メッセージを保存し、関連するファイルも保存
+     * 
+     * @since 1.0.0
+     *
+     * @param array $data メッセージデータ
+     * @param array $files 添付ファイル
+     * @return Message 保存されたメッセージインスタンス
+     */
     public function sendMessage(array $data, $files = [])
     {
+        // メッセージを保存
         $message = Message::create([
             'application_id' => $data['application_id'],
             'message'        => $data['message'],
@@ -18,6 +27,8 @@ class MessageService
             'sender_id'      => $data['sender_id'],
             'is_read'        => false,
         ]);
+
+        // 添付ファイルがある場合は保存
         if ($files && is_array($files)) {
             foreach ($files as $file) {
                 $path = $file->store('message_files');
@@ -33,9 +44,18 @@ class MessageService
         return $message;
     }
 
-    // メッセージのAPI整形
+    /**
+     * メッセージをAPI用に整形
+     * 
+     * @since 1.0.0
+     *
+     * @param \Illuminate\Support\Collection $messages メッセージコレクション
+     * @param string $downloadRouteName ファイルダウンロードのルート名
+     * @return \Illuminate\Support\Collection 整形されたメッセージコレクション
+     */
     public function formatMessagesForApi($messages, $downloadRouteName)
     {
+        // メッセージを整形
         return $messages->map(function ($message) use ($downloadRouteName) {
             return [
                 'id'         => $message->id,
@@ -57,7 +77,14 @@ class MessageService
         });
     }
 
-    // ファイルDL
+    /**
+     * Summary of downloadFile
+     * 
+     * @since 1.0.0
+     * 
+     * @param \App\Models\MessageFile $file ファイルモデル
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse ファイルのダウンロードレスポンス
+     */
     public function downloadFile(MessageFile $file)
     {
         return Storage::download($file->file_path, $file->file_name);

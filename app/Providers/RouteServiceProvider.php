@@ -7,6 +7,11 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
+    /**
+     * ルートモデルバインディングのプレフィックス
+     *
+     * @var string
+     */
     public function boot(): void
     {
         $this->routes(function () {

@@ -8,21 +8,41 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyProfileController extends Controller
 {
-    // 会社情報の表示
+
+    /**
+     * 企業のプロフィールを表示
+     *
+     * @since 1.0.0
+     *
+     * @return \Illuminate\View\View 会社情報ページのビュー
+     */
     public function show()
     {
         $company = Auth::guard('company')->user()->company;
         return view('company.profiles.show', compact('company'));
     }
 
-    // 会社情報編集フォーム
+    /**
+     * 企業のプロフィール編集フォームを表示
+     *
+     * @since 1.0.0
+     *
+     * @return \Illuminate\View\View プロフィール編集ページのビュー
+     */
     public function edit()
     {
         $company = Auth::guard('company')->user()->company;
         return view('company.profiles.edit', compact('company'));
     }
 
-    // 更新処理
+    /**
+     * 企業のプロフィールを更新
+     *
+     * @since 1.0.0
+     *
+     * @param \Illuminate\Http\Request $request リクエストインスタンス
+     * @return \Illuminate\Http\RedirectResponse 更新後のリダイレクトレスポンス
+     */
     public function update(Request $request)
     {
         $company = Auth::guard('company')->user()->company;

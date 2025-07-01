@@ -11,7 +11,16 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyMessageController extends Controller
 {
-    // メッセージ一覧取得
+
+    /**
+     * 企業の応募に対するメッセージ一覧を取得
+     *
+     * @since 1.0.0
+     *
+     * @param int $applicationId 応募ID
+     * @param MessageService $messageService メッセージサービス
+     * @return \Illuminate\Http\JsonResponse メッセージ一覧のJSONレスポンス
+     */
     public function show($applicationId, MessageService $messageService)
     {
         $company = Auth::user();
@@ -30,7 +39,16 @@ class CompanyMessageController extends Controller
         ]);
     }
 
-    // メッセージ送信
+    /**
+     * 応募に対するメッセージを送信
+     *
+     * @since 1.0.0
+     *
+     * @param \Illuminate\Http\Request $request リクエストインスタンス
+     * @param int $applicationId 応募ID
+     * @param MessageService $messageService メッセージサービス
+     * @return \Illuminate\Http\JsonResponse 送信後のメッセージ一覧のJSONレスポンス
+     */
     public function store(Request $request, $applicationId, MessageService $messageService)
     {
         $company = Auth::user();
@@ -61,11 +79,25 @@ class CompanyMessageController extends Controller
         ]);
     }
 
-    // ファイルDL
+
+    /**
+     * Summary of downloadFile
+     * 
+     * @since 1.0.0
+     * 
+     * @param int $fileId ファイルID
+     * @param \App\Services\MessageService $messageService メッセージサービス
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse ファイルのダウンロードレスポンス
+     */
     public function downloadFile($fileId, MessageService $messageService)
     {
+        // 認証された企業ユーザーの情報を取得
         $file = MessageFile::findOrFail($fileId);
+
+        // メッセージファイルから応募情報を取得
         $application = $file->message->application;
+
+        // 企業情報を取得
         $company = Auth::user();
 
         // 認可
@@ -73,6 +105,7 @@ class CompanyMessageController extends Controller
             abort(403);
         }
 
+        // ファイルのダウンロード処理をメッセージサービスに委譲
         return $messageService->downloadFile($file);
     }
 }

@@ -5,6 +5,13 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
+/**
+ * アプリケーションの設定と初期化
+ *
+ * @since 1.0.0
+ *
+ * @return \Illuminate\Foundation\Application
+ */
 return Application::configure(basePath: dirname(__DIR__))
     ->withProviders([
         App\Providers\AppServiceProvider::class,

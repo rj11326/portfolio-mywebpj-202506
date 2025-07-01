@@ -7,6 +7,14 @@ use App\Models\Area;
 
 class LocationAreaController extends Controller
 {
+
+    /**
+     * 地域とその下位のロケーションを取得
+     *
+     * @since 1.0.0
+     *
+     * @return \Illuminate\Http\JsonResponse 地域とロケーションのJSONレスポンス
+     */
     public function index()
     {
         $areas = Area::with(['locations' => function($q) {

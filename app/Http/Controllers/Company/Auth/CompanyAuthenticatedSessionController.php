@@ -8,15 +8,29 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyAuthenticatedSessionController extends Controller
 {
-    // ログインフォーム表示
+    /**
+     * 企業ログインフォームの表示
+     *
+     * @since 1.0.0
+     *
+     * @return \Illuminate\View\View 企業ログインページのビュー
+     */
     public function create()
     {
         return view('company.auth.login');
     }
 
-    // ログイン処理
+    /**
+     * 企業ログイン処理
+     *
+     * @since 1.0.0
+     *
+     * @param \Illuminate\Http\Request $request リクエストインスタンス
+     * @return \Illuminate\Http\RedirectResponse ログイン成功時のリダイレクトレスポンス
+     */
     public function login(Request $request)
     {
+        // リクエストのバリデーション
         $credentials = $request->validate([
             'email'    => ['required', 'email'],
             'password' => ['required'],
@@ -33,11 +47,20 @@ class CompanyAuthenticatedSessionController extends Controller
         return back()->withInput()->with('error', 'メールアドレスまたはパスワードが正しくありません。');
     }
 
-    // ログアウト処理
+    /**
+     * 企業ログアウト処理
+     *
+     * @since 1.0.0
+     *
+     * @param \Illuminate\Http\Request $request リクエストインスタンス
+     * @return \Illuminate\Http\RedirectResponse ログアウト後のリダイレクトレスポンス
+     */
     public function logout(Request $request)
     {
+        // 企業ログアウト処理
         Auth::guard('company')->logout();
 
+        // セッションを無効化し、トークンを再生成
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
