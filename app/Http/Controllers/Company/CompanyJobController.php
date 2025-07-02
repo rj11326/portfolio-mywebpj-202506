@@ -42,6 +42,8 @@ class CompanyJobController extends Controller
     /**
      * 求人の新規作成フォームを表示
      *
+     * 
+     * @since 1.0.1 カテゴリーとロケーションの取得方法を修正
      * @since 1.0.0
      *
      * @return \Illuminate\View\View 新規求人作成ページのビュー
@@ -93,6 +95,7 @@ class CompanyJobController extends Controller
     /** 
      * 求人編集フォームを表示
      *
+     * @since 1.0.1 カテゴリーとロケーションの取得方法を修正
      * @since 1.0.0
      *
      * @param int $id 求人ID
@@ -108,15 +111,19 @@ class CompanyJobController extends Controller
 
         // タグ、カテゴリ、ロケーションの情報を取得
         $allTags = Tag::orderBy('sort_order')->get();
-        $categories = JobCategory::all();
-        $locations = Location::all();
+        $categories = JobCategory::with('children')->whereNull('parent_id')->get();
+        $areas = Area::with([
+            'locations' => function ($q) {
+                $q->orderBy('sort_order');
+            }
+        ])->orderBy('sort_order')->get();
         $selectedTags = $job->tags->pluck('id')->toArray();
 
         return view('company.jobs.edit', [
             'job' => $job,
             'allTags' => $allTags,
             'categories' => $categories,
-            'locations' => $locations,
+            'areas' => $areas,
             'selectedTags' => $selectedTags,
         ]);
     }
@@ -186,6 +193,7 @@ class CompanyJobController extends Controller
     /**
      * 求人を複製して新規作成フォームに値を引き継ぐ
      *
+     * @since 1.0.1 カテゴリーとロケーションの取得方法を修正
      * @since 1.0.0
      *
      * @param int $id 求人ID
@@ -198,15 +206,19 @@ class CompanyJobController extends Controller
 
         // 複製用に値を引き継いで新規作成フォームへ
         $allTags = Tag::orderBy('sort_order')->get();
-        $categories = JobCategory::all();
-        $locations = Location::all();
+        $categories = JobCategory::with('children')->whereNull('parent_id')->get();
+        $areas = Area::with([
+            'locations' => function ($q) {
+                $q->orderBy('sort_order');
+            }
+        ])->orderBy('sort_order')->get();
         $selectedTags = $job->tags->pluck('id')->toArray();
 
         return view('company.jobs.create', [
             'job' => $job,
             'allTags' => $allTags,
             'categories' => $categories,
-            'locations' => $locations,
+            'areas' => $areas,
             'selectedTags' => $selectedTags,
             'isCopy' => true,
         ]);
