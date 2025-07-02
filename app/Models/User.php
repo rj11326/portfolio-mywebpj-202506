@@ -53,10 +53,10 @@ class User extends Authenticatable
         return $this->hasMany(Application::class);
     }
 
- public function savedJobs()
-{
-    return $this->belongsToMany(\App\Models\Job::class, 'saved_jobs')->withTimestamps();
-}
+    public function savedJobs()
+    {
+        return $this->belongsToMany(\App\Models\Job::class, 'saved_jobs')->withTimestamps();
+    }
 
     public function workHistories(): HasMany
     {

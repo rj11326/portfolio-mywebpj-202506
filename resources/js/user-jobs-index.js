@@ -16,6 +16,8 @@ function jobFilter() {
         locationAreas: [],
         // --- 結果リスト ---
         jobs: [],
+        // --- 応募済み求人リスト ---
+        appliedJobIds: [],
         // --- ページネーション ---
         currentPage: 1,
         lastPage: 1,
@@ -153,6 +155,11 @@ function jobFilter() {
         isSaved(jobId) {
             return this.savedJobIds.includes(jobId);
         },
+        isApplied(jobId) {
+            console.log("test:" + this.appliedJobIds);
+            if (!this.appliedJobIds) return null;
+            return this.appliedJobIds.includes(jobId);
+        },
         fetchJobs(page = 1) {
             const params = new URLSearchParams();
             if (this.keyword) params.append('q', this.keyword);
@@ -184,6 +191,7 @@ function jobFilter() {
                 .then(res => res.json())
                 .then(data => {
                     this.jobs = data.jobs;
+                    this.appliedJobIds = data.applied_job_ids ?? [];
                     this.currentPage = data.current_page;
                     this.lastPage = data.last_page;
                 });

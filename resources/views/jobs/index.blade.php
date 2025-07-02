@@ -5,7 +5,7 @@
 @section('content')
 <div x-data="jobFilter()" x-init="init();" @search.window="onSearch($event)"
     class="max-w-7xl mx-auto py-10 px-4 grid md:grid-cols-4 gap-8">
-    <!-- Sidebar Filters -->
+    <!-- サイドバーフィルター(PC) -->
     <aside class="md:col-span-1 bg-gray-100 p-6 rounded-lg shadow">
         <!-- フィルター（スマホ用トグル） -->
         <div class="md:hidden mb-4">
@@ -111,8 +111,9 @@
         </div>
     </aside>
 
-    <!-- Job Cards -->
+    <!-- ジョブカード -->
     <section class="md:col-span-3">
+        <!-- ソートボタン -->
         <div class="flex items-center gap-4 mb-6">
             <div class="text-sm font-semibold">並び替え:</div>
             <button type="button" class="px-3 py-1 rounded-full border transition text-sm"
@@ -129,6 +130,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 auto-rows-min" id="job-list">
             <template x-for="job in jobs" :key="job.id">
                 <div class="relative bg-white p-6 rounded-2xl shadow border min-h-[240px] flex flex-col group">
+                    <!-- 求人保存ボタン(ログイン時のみ表示) -->
                     @auth
                     <button type="button" class="absolute top-3 right-3" @click="toggleSave(job.id)"
                         :title="isSaved(job.id) ? '保存解除' : '保存する'">
@@ -156,14 +158,24 @@
                         </template>
                     </div>
                     <div class="text-sm text-gray-800 mt-1 mb-3 line-clamp-2 flex-1" x-text="job.description"></div>
+                    <!-- 応募ボタン(応募済みの場合はグレー) -->
                     <div class="mt-auto">
-                        <a x-bind:href="'/jobs/' + job.id"
-                            class="block w-full text-center bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-full transition">
-                            応募する
-                        </a>
+                        <template x-if="isApplied(job.id)">
+                            <a :href="'/jobs/' + job.id"
+                                class="block w-full text-center bg-gray-300 text-gray-500 font-semibold py-2 rounded-full">
+                                応募済み
+                            </a>
+                        </template>
+                        <template x-if="!isApplied(job.id)">
+                            <a :href="'/jobs/' + job.id"
+                                class="block w-full text-center bg-red-500 hover:bg-red-600 text-white font-semibold py-2 rounded-full transition">
+                                応募する
+                            </a>
+                        </template>
                     </div>
                 </div>
             </template>
+            <!-- 検索結果が空の場合 -->
             <template x-if="jobs.length === 0">
                 <div class="col-span-2 text-gray-400 text-center py-10">該当する求人がありません</div>
             </template>

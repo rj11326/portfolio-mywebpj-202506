@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Job;
+use App\Models\Application;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class JobApiController extends Controller
 {
     /**
      * 求人一覧を取得
      *
+     * @since 1.0.1 応募済みの求人IDを取得する機能を追加
      * @since 1.0.0
      *
      * @param \Illuminate\Http\Request $request リクエストインスタンス
@@ -21,6 +24,12 @@ class JobApiController extends Controller
     {
         // 求人情報を取得
         $query = Job::with(['company', 'tags']);
+
+        $appliedJobIds = [];
+        if (Auth::guard('web')->check()) {
+            $userId = Auth::id();
+            $appliedJobIds = Application::where('user_id', $userId)->pluck('job_id')->toArray();
+        }
 
         // タグフィルタリング
         if ($request->filled('tags')) {
@@ -107,6 +116,7 @@ class JobApiController extends Controller
         // 求人情報、現在のページ、最終ページ、総件数を含む
         return response()->json([
             'jobs' => $jobs->items(),
+            'applied_job_ids' => $appliedJobIds,
             'current_page' => $jobs->currentPage(),
             'last_page' => $jobs->lastPage(),
             'total' => $jobs->total(),
