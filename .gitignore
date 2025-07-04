@@ -48,3 +48,7 @@ fly.toml
 .editconfig
 tbls.yml
 tring('resume_path')->nullable();
+api
+.env.testing
+.env.dusk.local
+.phpunit.cache/test-results

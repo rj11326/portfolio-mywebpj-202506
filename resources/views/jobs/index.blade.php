@@ -37,6 +37,7 @@
                 <div class="flex flex-wrap gap-2">
                     <template x-for="tag in tags" :key="tag.id">
                         <button type="button" class="px-4 py-1 rounded-full border border-gray-300 text-sm"
+                            :data-test="'tag-' + tag.id"
                             :class="activeTags.includes(tag.id) ? 'bg-red-500 text-white border-red-500' : 'bg-white text-gray-700'"
                             @click="toggleTag(tag.id)" x-text="tag.label"></button>
                     </template>
@@ -49,16 +50,19 @@
                 <div class="flex flex-col gap-1">
                     <label class="inline-flex items-center">
                         <input type="checkbox" value="1" x-model="employmentTypes" @change="fetchJobs()"
+                            data-test="employment-type-1"
                             class="mr-2 rounded border-gray-300">
                         <span>正社員</span>
                     </label>
                     <label class="inline-flex items-center">
                         <input type="checkbox" value="2" x-model="employmentTypes" @change="fetchJobs()"
+                            data-test="employment-type-2"
                             class="mr-2 rounded border-gray-300">
                         <span>契約社員</span>
                     </label>
                     <label class="inline-flex items-center">
                         <input type="checkbox" value="3" x-model="employmentTypes" @change="fetchJobs()"
+                            data-test="employment-type-3"
                             class="mr-2 rounded border-gray-300">
                         <span>業務委託</span>
                     </label>
@@ -69,6 +73,7 @@
             <div class="mb-4">
                 <label class="block font-medium mb-2">職種</label>
                 <button type="button" class="w-full text-left bg-white border rounded px-4 py-2"
+                    data-test="job-category-button"
                     @click="openJobCategoryModal = true">
                     <template x-if="selectedJobCategoryNames.length === 0">
                         <span>選択してください</span>
@@ -84,6 +89,7 @@
             <div class="mb-4">
                 <label class="block font-medium mb-2">勤務地</label>
                 <button type="button" class="w-full text-left bg-white border rounded px-4 py-2"
+                    data-test="location-button"
                     @click="openLocationModal = true">
                     <template x-if="selectedLocationNames.length === 0">
                         <span>選択してください</span>

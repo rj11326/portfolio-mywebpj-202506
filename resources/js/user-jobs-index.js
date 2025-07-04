@@ -156,7 +156,6 @@ function jobFilter() {
             return this.savedJobIds.includes(jobId);
         },
         isApplied(jobId) {
-            console.log("test:" + this.appliedJobIds);
             if (!this.appliedJobIds) return null;
             return this.appliedJobIds.includes(jobId);
         },
