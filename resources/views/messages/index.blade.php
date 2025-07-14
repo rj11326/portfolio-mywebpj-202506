@@ -1,4 +1,7 @@
 @extends('layouts.app')
+
+@section('title', 'メッセージ一覧')
+
 @php $hideFooter = true; @endphp
 
 @section('content')
@@ -43,7 +46,6 @@
                     stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0…" />
                 </svg>
-                <div class="text-xl font-bold">メッセージがあります</div>
                 <div class="mt-2">メッセージを選択してください</div>
             </div>
         </div>

@@ -7,10 +7,11 @@ Laravel + PostgreSQL + Tailwind CSS + Alpine.js によるシンプルなWeb求�
 ---
 
 ## 技術スタック
+
 - バックエンド: PHP (Laravel 12)
 - フロントエンド: Blade、Tailwind CSS、Alpine.js
 - データベース: PostgreSQL
-- テスト: PHPUnit
+- テスト: PHPUnit, Laravel Dusk
 - その他: Composer, npm, Webpack, Git
 
 ---
@@ -21,6 +22,7 @@ Laravel + PostgreSQL + Tailwind CSS + Alpine.js によるシンプルなWeb求�
 - 求人への応募（履歴書・職務経歴書アップロード対応）
 - 応募履歴の管理・確認
 - マイページ編集（プロフィール・職歴・学歴・資格）
+- メッセージ機能(ユーザー・企業間)
 - 企業による求人管理・応募者管理
 - 管理者による全体管理（求人・企業・カテゴリ・タグ等）
 - 認証機能（求職者・企業・管理者で分離）
@@ -32,7 +34,7 @@ Laravel + PostgreSQL + Tailwind CSS + Alpine.js によるシンプルなWeb求�
 本アプリケーションは [Fly.io](https://fly.io/) 上で動作しています。
 
 - アクセスURL: [https://jobsite-withered-dust-5557.fly.dev](https://jobsite-withered-dust-5557.fly.dev)
-無料プランなので初回読み込みに時間が掛かります。
+- 無料プランなので初回読み込みに時間が掛かります。
 
 ---
 
@@ -65,8 +67,16 @@ Laravel + PostgreSQL + Tailwind CSS + Alpine.js によるシンプルなWeb求�
 - パスワード: password
 
 ### 企業アカウント
-- メールアドレス: sample1@example.com
-- パスワード: password
+- 企業1
+    - メールアドレス: sample1@example.com
+    - パスワード: password
+- 企業2
+    - メールアドレス: sample2@example.com
+    - パスワード: password
+- 企業3
+    - メールアドレス: sample3@example.com
+    - パスワード: password
+
 
 ### 管理者アカウント
 - メールアドレス: admin@example.com
