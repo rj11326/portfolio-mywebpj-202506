@@ -31,10 +31,7 @@ Laravel + PostgreSQL + Tailwind CSS + Alpine.js によるシンプルなWeb求�
 
 ## デモ環境
 
-本アプリケーションは [Fly.io](https://fly.io/) 上で動作しています。
-
-- アクセスURL: [https://jobsite-withered-dust-5557.fly.dev](https://jobsite-withered-dust-5557.fly.dev)
-- 無料プランなので初回読み込みに時間が掛かります。
+- アクセスURL: [https://simply-job.jp/](https://simply-job.jp/)
 
 ---
 
