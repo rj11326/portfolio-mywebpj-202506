@@ -42,7 +42,7 @@
         @else
         <div class="flex-1 flex items-center justify-center text-gray-500">
             <div class="flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                <svg xmlns="https://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="1.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0…" />
                 </svg>
