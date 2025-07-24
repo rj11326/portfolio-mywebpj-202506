@@ -46,13 +46,13 @@ Laravel + PostgreSQL + Tailwind CSS + Alpine.js によるシンプルなWeb求�
 
 ### 企業アカウントの場合
 
-1. ログイン画面: [https://jobsite-withered-dust-5557.fly.dev/company/login](https://jobsite-withered-dust-5557.fly.dev/company/login)からログイン出来ます。(ダミーデータでのログイン情報は下記参照)
+1. ログイン画面: [https://simply-job.jp/company/login](https://simply-job.jp/company/login)からログイン出来ます。(ダミーデータでのログイン情報は下記参照)
 2. 管理画面から求人情報の登録や応募者管理、会社情報の編集、会社画像の編集が可能です。
 
 
 ### 管理者アカウントの場合
 
-1. ログイン画面: [https://jobsite-withered-dust-5557.fly.dev/admin/login](https://jobsite-withered-dust-5557.fly.dev/admin/login)からログイン出来ます。
+1. ログイン画面: [https://simply-job.jp/admin/login](https://simply-job.jp/admin/login)からログイン出来ます。
 2. 管理画面から企業情報の管理、求人管理、カテゴリ管理、タグ管理が可能です。
 
 ---
